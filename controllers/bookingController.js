@@ -34,7 +34,7 @@ exports.createBooking = async (req, res) => {
 };
 
 // function to get all bookings
-exports.getBookings = async (req, res) => {
+exports.getAllBookings = async (req, res) => {
     try{
         // find all bookings made by the user and populate the event details
         const bookings = await Booking.find({user: req.user._id}).populate('event')
