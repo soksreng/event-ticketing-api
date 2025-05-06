@@ -21,7 +21,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
-//app.use('/api/events', require('./routes/eventRoutes'));
+app.use('/api/events', require('./routes/eventRoutes'));
 //app.use('/api/bookings', require('./routes/bookingRoutes')); 
 
 // Catch-all middleware

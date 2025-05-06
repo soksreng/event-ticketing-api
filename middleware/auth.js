@@ -26,7 +26,7 @@ exports.protect = async (req, res, next) => {
 
 // This function checks if the user has admin privileges by comparing the user's role with 'admin'.
 
-exports.AdminOnly = (req, res, next) => {
+exports.adminOnly = (req, res, next) => {
     // Check if the user role is 'admin'
     if(req.user && req.user.role === 'admin') {
         // Call the next middleware or route handler
