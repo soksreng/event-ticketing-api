@@ -18,15 +18,15 @@ app.use(morgan('dev'));
 
 // Static Welcome Page
 app.use('/', express.static(path.join(__dirname, 'public')));
-/*
+
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/events', require('./routes/eventRoutes'));
-app.use('/api/bookings', require('./routes/bookingRoutes')); 
+//app.use('/api/events', require('./routes/eventRoutes'));
+//app.use('/api/bookings', require('./routes/bookingRoutes')); 
 
 // Catch-all middleware
-app.use(require('./middleware/notFound'));
-app.use(require('./middleware/errorHandler')); */
+//app.use(require('./middleware/notFound'));
+//app.use(require('./middleware/errorHandler')); 
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
