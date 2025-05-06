@@ -46,3 +46,18 @@ exports.getBookings = async (req, res) => {
         return res.status(500).json({ error: error.message })
     }
 }
+
+// function to get a single booking by ID
+exports.getBookingById = async (req, res) => {
+    try{
+        // find the booking by ID and populate the event details 
+        const booking = await Booking.findOne({id: req.params.id, user: req.user._id}).populate('event');
+        if(!booking) {
+            return res.status(404).json({message: "Booking not found"});
+        }
+        res.status(200).json(booking);
+    } catch(error) {
+        return res.status(500).json({ error: error.message })
+    }
+}
+
