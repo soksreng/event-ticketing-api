@@ -1,5 +1,6 @@
 const Booking = require('../models/Booking');
 const Event = require('../models/Event');
+const sendEmail = require('../utils/sendEmail');
 //function to create a new booking by user
 exports.createBooking = async (req, res) => {
     // extract event ID and quantity from the request body
@@ -28,6 +29,13 @@ exports.createBooking = async (req, res) => {
         await event.save();
 
         res.status(201).json(booking);
+        // send confirmation email to the user
+        await sendEmail(
+            req.user.email,
+            'Booking Confirmation',
+            `Hey ${req.user.name}, you’re all booked! ${quantity} ticket${quantity > 1 ? 's' : ''} for "${event.title}" — can’t wait to see you there.`
+            
+        )
     } catch(error) {
         return res.status(500).json({ error: error.message })
     }
