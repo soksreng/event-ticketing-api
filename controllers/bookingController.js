@@ -86,3 +86,27 @@ exports.getBookingById = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+// Ticket validation with QR code
+
+exports.validateTicket = async (req, res) => {
+  try{
+    const booking = await Booking.findOne({qrCode: req.params.qrCode}).populate("event user");
+    // Check if the booking exists and is valid
+    if (!booking) {
+      return res.status(404).json({ message: "invalid or expired ticket" });
+    }
+    
+    res.json({
+      message: "Ticket is valid",
+      booking: {
+        event: booking.event.title,
+        user: booking.user.name,
+        quantity: booking.quantity,
+        qrCode: booking.qrCode,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}

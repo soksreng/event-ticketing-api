@@ -14,7 +14,7 @@ exports.protect = async (req, res, next) => {
     // Verify the token using the secret key
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        // Find the user asscociated with the token
+        // Find the user associated with the token
         req.user = await User.findById(decoded.id).select('-password');
         // Call the next middleware or route handler
         next();
