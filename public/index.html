@@ -1,15 +1,106 @@
-<!-- This is a simple HTML file that serves as the landing page for the Event Ticketing API. -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Ticketing API</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎟️ Event Ticketing API</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .section {
+      background: #fff;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #007acc;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+    code {
+      background: #eaf2f8;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎟️ Event Ticketing API</h1>
+  <p>Use this RESTful API to register, login, browse events, and book tickets. Built with Node.js, Express, and MongoDB.</p>
 
-  
-  <body>
-    <h1>🎟️ Welcome to the Event Ticketing API</h1>
-    <p>Use <code>/api</code> to access API endpoints.</p>
-  </body>
+  <div class="section">
+    <h2>👤 Auth Endpoints</h2>
+    <ul>
+      <li><code>POST /api/auth/register</code> – Register a new user</li>
+      <li><code>POST /api/auth/login</code> – Login and receive JWT token</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📅 Event Endpoints</h2>
+    <ul>
+      <li><code>GET /api/events</code> – List all events</li>
+      <li><code>GET /api/events/:id</code> – Get a specific event by ID</li>
+      <li><code>GET /api/events?category=</code> – Filter events by category</li>
+      <li><code>GET /api/events?date=YYYY-MM-DD</code> – Filter events by date</li>
+      <li><code>POST /api/events</code> – Create new event (admin only)</li>
+      <li><code>PUT /api/events/:id</code> – Update event (admin only)</li>
+      <li><code>DELETE /api/events/:id</code> – Delete event and its bookings (admin only)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🧾 Booking Endpoints</h2>
+    <ul>
+      <li><code>POST /api/bookings</code> – Book tickets for an event (user only)</li>
+      <li><code>GET /api/bookings</code> – Get all bookings of logged-in user</li>
+      <li><code>GET /api/bookings/:id</code> – Get booking by ID (user only)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>✨ Optional Features</h2>
+    <ul>
+      <li><code>GET /api/bookings/validate/:qr</code> – Validate ticket using QR code</li>
+      <li>📧 Sends email confirmation after booking (nodemailer)</li>
+      <li>🧾 Admin can view who booked each event (if added)</li>
+    </ul>
+  </div>
+
+  <footer>
+    Built for academic and testing purposes — contact the developer for access or questions.
+  </footer>
+</body>
 </html>
