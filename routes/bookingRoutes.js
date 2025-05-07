@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/auth');
+const { protect, userOnly } = require('../middleware/auth');
 
 const { createBooking, getAllBookings, getBookingById} = require('../controllers/bookingController');
 
 // Define routes for booking-related operations
-router.post('/', protect, createBooking); // Create a new booking
+router.post('/', protect, userOnly, createBooking); // Create a new booking
 router.get('/', protect, getAllBookings); // Fetch all bookings for the user
 router.get('/:id', protect, getBookingById); // Fetch a single booking by ID
 

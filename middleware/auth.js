@@ -36,3 +36,11 @@ exports.adminOnly = (req, res, next) => {
         res.status(403).json({ message: 'Admin only' });
     }
 }
+
+exports.userOnly = (req, res, next) => {
+    if (req.user.role !== 'user') {
+      return res.status(403).json({ error: 'Only users can perform this action' });
+    }
+    next();
+  };
+  
