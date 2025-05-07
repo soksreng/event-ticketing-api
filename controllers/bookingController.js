@@ -59,7 +59,7 @@ exports.getAllBookings = async (req, res) => {
 exports.getBookingById = async (req, res) => {
     try{
         // find the booking by ID and populate the event details 
-        const booking = await Booking.findOne({id: req.params.id, user: req.user._id}).populate('event');
+        const booking = await Booking.findOne({_id: req.params.id, user: req.user._id}).populate('event');
         if(!booking) {
             return res.status(404).json({message: "Booking not found"});
         }
