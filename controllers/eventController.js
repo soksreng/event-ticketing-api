@@ -1,4 +1,5 @@
 const Event = require('../models/Event');
+const Booking = require('../models/Booking');
 // Function to fetch all events from the database
 exports.getAllEvents = async (req, res) => {
     try {
@@ -69,17 +70,22 @@ exports.updateEvent = async (req, res) => {
 };
 
 // Function to delete an event by its ID
+
 exports.deleteEvent = async (req, res) => {
-    try {
-        const event = await Event.findById(req.params.id);
-        if(!event) {
-            return res.status(404).json({message: "Event not found"});
-        }
-        // Delete the event from the database
-        await event.remove();
-        res.json({message: "Event deleted successfully"});
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
     }
+    // Delete related bookings
+    await Booking.deleteMany({ event: event._id });
+    // Delete the event properly
+    await Event.findByIdAndDelete(event._id);
+
+    res.json({ message: "Event and related bookings deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
+
 
