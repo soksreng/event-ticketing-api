@@ -26,16 +26,20 @@ exports.createBooking = async (req, res) => {
 
         // update the booked seats in the event document
         event.bookedSeats += quantity;
-        await event.save();
+        // Send email to the user confirming the booking
+        try{
+            await sendEmail(
+                req.user.email,
+                'Booking Confirmation',
+                `Hey ${req.user.name}, you're all booked! You reserved ${quantity} ticket${quantity > 1 ? 's' : ''} for "${event.title}". See you there!`
+            );
+        } catch(error){
+            console.error('Email failed:', error.message);
+        }
 
+        await event.save();
         res.status(201).json(booking);
-        // send confirmation email to the user
-        await sendEmail(
-            req.user.email,
-            'Booking Confirmation',
-            `Hey ${req.user.name}, you’re all booked! ${quantity} ticket${quantity > 1 ? 's' : ''} for "${event.title}" — can’t wait to see you there.`
-            
-        )
+        
     } catch(error) {
         return res.status(500).json({ error: error.message })
     }
