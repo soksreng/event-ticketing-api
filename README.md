@@ -113,6 +113,106 @@ npm install --save-dev nodemon
 ### 📊 Admin
 - `GET /api/admin/dashboard` — Get all events + users who booked each 
 
+## 📦 Sample Request Bodies & API Testing Examples
+
+### 📍 1. Register a User  
+**POST** `/api/auth/register`  
+```json
+{
+  "name": "Jack",
+  "email": "jack@example.com",
+  "password": "mySecurePassword"
+}
+```
+
+---
+
+### 📍 2. Login a User  
+**POST** `/api/auth/login`  
+```json
+{
+  "email": "jack@example.com",
+  "password": "mySecurePassword"
+}
+```
+
+📝 After login, copy the token from the response and use it in the Authorization header for protected routes:
+```
+Authorization: Bearer <your_token>
+```
+
+---
+
+### 📍 3. Create an Event *(Admin Only)*  
+**POST** `/api/events`  
+```json
+{
+  "title": "Tech Conference 2025",
+  "description": "A 3-day tech expo and networking event",
+  "category": "Technology",
+  "venue": "Innovation Hall",
+  "date": "2025-11-03",
+  "time": "09:00",
+  "seatCapacity": 200,
+  "price": 50
+}
+```
+
+---
+
+### 📍 4. Update an Event *(Admin Only)*  
+**PUT** `/api/events/:id`  
+```json
+{
+  "title": "Updated Tech Conference 2025",
+  "venue": "New Innovation Hub",
+  "seatCapacity": 220,
+  "price": 55
+}
+```
+⚠️ Cannot reduce seatCapacity below already booked seats.
+
+---
+
+### 📍 5. Book Tickets *(User Only)*  
+**POST** `/api/bookings`  
+```json
+{
+  "event": "replace_with_valid_event_id",
+  "quantity": 2
+}
+```
+
+---
+
+### 📍 6. View All Bookings *(User Only)*  
+**GET** `/api/bookings`  
+_(No body needed, just include token in header)_
+
+**Headers:**
+```
+Authorization: Bearer <your_token>
+```
+
+---
+
+### 📍 7. View a Specific Booking *(User Only)*  
+**GET** `/api/bookings/:id`  
+_(Replace `:id` with your actual booking ID)_
+
+**Headers:**
+```
+Authorization: Bearer <your_token>
+```
+
+---
+
+### 📍 8. Validate Ticket *(Public)*  
+**GET** `/api/bookings/validate/QR-abcdef1234`  
+_(No body or token needed — just use a valid QR code string)_
+
+---
+
 ## 🧪 API Testing
 
 This project was thoroughly tested using:
